@@ -16,7 +16,10 @@ import (
 	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
 )
 
-const defaultLogicPackage = "logic"
+const (
+	defaultLogicPackage = "logic"
+	pathTagKey          = "path"
+)
 
 //go:embed handler.tpl
 var handlerTemplate string
@@ -58,6 +61,8 @@ func genHandler(dir, rootPkg string, cfg *config.Config, group spec.Group, route
 		isParameterRequest = false
 	}
 
+	hasPath := hasRequestPath(route)
+
 	var swaggerPath string
 	if strings.Contains(route.Path, ":") {
 		swaggerPath = ConvertRoutePathToSwagger(route.Path)
@@ -74,7 +79,7 @@ func genHandler(dir, rootPkg string, cfg *config.Config, group spec.Group, route
 	handlerDoc.WriteString("//\n")
 
 	// HasRequest
-	if len(route.RequestTypeName()) > 0 && !isParameterRequest {
+	if len(route.RequestTypeName()) > 0 && !isParameterRequest && !hasPath {
 		handlerDoc.WriteString(fmt.Sprintf(`// Parameters:
 			//  + name: body
 			//    require: true
@@ -188,4 +193,13 @@ func getLogicName(route spec.Route) string {
 	}
 
 	return handler + "Logic"
+}
+
+func hasRequestPath(route spec.Route) bool {
+	ds, ok := route.RequestType.(spec.DefineStruct)
+	if !ok {
+		return false
+	}
+
+	return len(route.RequestTypeName()) > 0 && len(ds.GetTagMembers(pathTagKey)) > 0
 }
