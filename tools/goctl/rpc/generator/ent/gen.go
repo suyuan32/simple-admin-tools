@@ -61,6 +61,7 @@ type GenEntLogicContext struct {
 	ModuleName      string
 	GroupName       string
 	UseUUID         bool
+	UseStringID     bool
 	ProtoOut        string
 	Overwrite       bool
 }
@@ -232,6 +233,11 @@ func GenCRUDData(g *GenEntLogicContext, projectCtx *ctx.ProjectContext, schema *
 			if v.Name == "id" && entx.IsUUIDType(v.Info.Type.String()) {
 				g.UseUUID = true
 			}
+
+			if v.Name == "id" && entx.IsStringType(v.Info.Type.String()) {
+				g.UseStringID = true
+			}
+
 			continue
 		} else if entx.IsOnlyEntType(v.Info.Type.String()) {
 			setLogic.WriteString(fmt.Sprintf("\t\t\tSet%s(%s(in.%s)).\n", parser.CamelCase(v.Name),
@@ -279,7 +285,8 @@ func GenCRUDData(g *GenEntLogicContext, projectCtx *ctx.ProjectContext, schema *
 		"projectName": strings.ToLower(g.ProjectName),
 		"projectPath": projectCtx.Path,
 		"packageName": packageName,
-		"useUUID":     g.UseUUID, // UUID primary key
+		"useUUID":     g.UseUUID,     // UUID primary key
+		"useStringID": g.UseStringID, // StringID primary key
 	})
 
 	data = append(data, &RpcLogicData{
@@ -297,7 +304,8 @@ func GenCRUDData(g *GenEntLogicContext, projectCtx *ctx.ProjectContext, schema *
 		"projectName": strings.ToLower(g.ProjectName),
 		"projectPath": projectCtx.Path,
 		"packageName": packageName,
-		"useUUID":     g.UseUUID, // UUID primary key
+		"useUUID":     g.UseUUID,     // UUID primary key
+		"useStringID": g.UseStringID, // StringID primary key
 	})
 
 	data = append(data, &RpcLogicData{
@@ -377,6 +385,7 @@ func GenCRUDData(g *GenEntLogicContext, projectCtx *ctx.ProjectContext, schema *
 		"modelNameLowerCase": strings.ToLower(schema.Name),
 		"packageName":        packageName,
 		"useUUID":            g.UseUUID,
+		"useStringID":        g.UseStringID,
 	})
 
 	data = append(data, &RpcLogicData{
@@ -394,6 +403,7 @@ func GenCRUDData(g *GenEntLogicContext, projectCtx *ctx.ProjectContext, schema *
 		"modelNameLowerCase": strings.ToLower(schema.Name),
 		"packageName":        packageName,
 		"useUUID":            g.UseUUID,
+		"useStringID":        g.UseStringID,
 	})
 
 	data = append(data, &RpcLogicData{
@@ -410,6 +420,7 @@ func GenCRUDData(g *GenEntLogicContext, projectCtx *ctx.ProjectContext, schema *
 		"projectPath":        projectCtx.Path,
 		"packageName":        packageName,
 		"useUUID":            g.UseUUID,
+		"useStringID":        g.UseStringID,
 	})
 
 	data = append(data, &RpcLogicData{
@@ -431,8 +442,16 @@ func GenProtoData(schema *load.Schema, g *GenEntLogicContext) (string, string, e
 	idString, _ := format.FileNamingFormat(g.ProtoFieldStyle, "id")
 	createString, _ := format.FileNamingFormat(g.ProtoFieldStyle, "created_at")
 	updateString, _ := format.FileNamingFormat(g.ProtoFieldStyle, "updated_at")
+	ConvertIDStatus := false
+	if g.UseUUID {
+		ConvertIDStatus = true
+	}
+	if g.UseStringID {
+		ConvertIDStatus = true
+	}
 	protoMessage.WriteString(fmt.Sprintf("message %sInfo {\n  %s %s = 1;\n  int64 %s = 2;\n  int64 %s = 3;\n",
-		schemaNameCamelCase, entx.ConvertIDType(g.UseUUID), idString, createString, updateString))
+		schemaNameCamelCase, entx.ConvertIDType(ConvertIDStatus), idString, createString, updateString))
+
 	index := 4
 	for i, v := range schema.Fields {
 		if entx.IsBaseProperty(v.Name) {
@@ -506,10 +525,11 @@ func GenProtoData(schema *load.Schema, g *GenEntLogicContext) (string, string, e
 	protoRpcFunction := bytes.NewBufferString("")
 	protoTmpl, err := template.New("proto").Parse(protoTpl)
 	err = protoTmpl.Execute(protoRpcFunction, map[string]any{
-		"modelName": schema.Name,
-		"groupName": groupName,
-		"useUUID":   g.UseUUID,
-		"hasStatus": hasStatus,
+		"modelName":   schema.Name,
+		"groupName":   groupName,
+		"useUUID":     g.UseUUID,
+		"hasStatus":   hasStatus,
+		"useStringID": g.UseStringID,
 	})
 
 	if err != nil {

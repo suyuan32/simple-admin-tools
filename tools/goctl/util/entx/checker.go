@@ -65,6 +65,13 @@ func IsUUIDType(prop string) bool {
 	return false
 }
 
+func IsStringType(prop string) bool {
+	if prop == "string" {
+		return true
+	}
+	return false
+}
+
 // IsOnlyEntType returns true when the type is only in ent schema. e.g. uint8
 func IsOnlyEntType(t string) bool {
 	switch t {
