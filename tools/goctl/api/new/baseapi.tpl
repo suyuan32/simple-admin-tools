@@ -41,6 +41,7 @@ type SimpleMsg {
 type PageInfo {
     // Page number | 第几页
     // Required: true
+    // Minimum: 1
     Page   uint64    `json:"page" validate:"number,min=1"`
 
     // Page size | 单页数据行数
