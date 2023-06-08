@@ -1,7 +1,7 @@
 {
   "goctl": {
     "short": "A cli tool to generate go-zero code",
-    "long": "\n      ___                       ___           ___           ___       ___     \n     /\\  \\          ___        /\\__\\         /\\  \\         /\\__\\     /\\  \\    \n    /::\\  \\        /\\  \\      /::|  |       /::\\  \\       /:/  /    /::\\  \\   \n   /:/\\ \\  \\       \\:\\  \\    /:|:|  |      /:/\\:\\  \\     /:/  /    /:/\\:\\  \\  \n  _\\:\\~\\ \\  \\      /::\\__\\  /:/|:|__|__   /::\\~\\:\\  \\   /:/  /    /::\\~\\:\\  \\ \n /\\ \\:\\ \\ \\__\\  __/:/\\/__/ /:/ |::::\\__\\ /:/\\:\\ \\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\\n \\:\\ \\:\\ \\/__/ /\\/:/  /    \\/__/~~/:/  / \\/__\\:\\/:/  / \\:\\  \\    \\:\\~\\:\\ \\/__/\n  \\:\\ \\:\\__\\   \\::/__/           /:/  /       \\::/  /   \\:\\  \\    \\:\\ \\:\\__\\  \n   \\:\\/:/  /    \\:\\__\\          /:/  /         \\/__/     \\:\\  \\    \\:\\ \\/__/  \n    \\::/  /      \\/__/         /:/  /                     \\:\\__\\    \\:\\__\\    \n     \\/__/                     \\/__/                       \\/__/     \\/__/    \n \n A cli tool to generate Simple Admin's api, zrpc, model code\n\nGitHub: https://github.com/suyuan32/simple-admin-tools\nSite:   https://doc.ryansu.pro/",
+    "long": "\n      ___                       ___           ___           ___       ___     \n     /\\  \\          ___        /\\__\\         /\\  \\         /\\__\\     /\\  \\    \n    /::\\  \\        /\\  \\      /::|  |       /::\\  \\       /:/  /    /::\\  \\   \n   /:/\\ \\  \\       \\:\\  \\    /:|:|  |      /:/\\:\\  \\     /:/  /    /:/\\:\\  \\  \n  _\\:\\~\\ \\  \\      /::\\__\\  /:/|:|__|__   /::\\~\\:\\  \\   /:/  /    /::\\~\\:\\  \\ \n /\\ \\:\\ \\ \\__\\  __/:/\\/__/ /:/ |::::\\__\\ /:/\\:\\ \\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\\n \\:\\ \\:\\ \\/__/ /\\/:/  /    \\/__/~~/:/  / \\/__\\:\\/:/  / \\:\\  \\    \\:\\~\\:\\ \\/__/\n  \\:\\ \\:\\__\\   \\::/__/           /:/  /       \\::/  /   \\:\\  \\    \\:\\ \\:\\__\\  \n   \\:\\/:/  /    \\:\\__\\          /:/  /         \\/__/     \\:\\  \\    \\:\\ \\/__/  \n    \\::/  /      \\/__/         /:/  /                     \\:\\__\\    \\:\\__\\    \n     \\/__/                     \\/__/                       \\/__/     \\/__/    \n \n A cli tool to generate Simple Admin's api, zrpc, model code\n\nGitHub: https://github.com/playbors/playbor-admin-tools\nSite:   https://doc.ryansu.pro/",
     "api": {
       "short": "Generate api related files",
       "o": "Output a sample api file",
@@ -52,7 +52,7 @@
         "casbin": "Whether to use the Casbin",
         "i18n": "{{.global.i18n}}",
         "go_zero_version": "The go zero version used for replacement. e.g. v1.5.2, see [https://github.com/zeromicro/go-zero/releases]",
-        "tool_version": "The simple admin tool version version used for migration. e.g. v1.5.5, see [https://github.com/suyuan32/simple-admin-tools/releases]",
+        "tool_version": "The simple admin tool version version used for migration. e.g. v1.5.5, see [https://github.com/playbors/playbor-admin-tools/releases]",
         "module_name": "The module name in go.mod. e.g. github.com/suyuan32/simple-admin-core",
         "trans_err": "Whether to translate the error",
         "port": "The service port exposed",
@@ -213,7 +213,7 @@
         "ent": "Whether use Ent in project",
         "module_name": "The module name in go.mod. e.g. github.com/suyuan32/simple-admin-core",
         "go_zero_version": "The go zero version used for replacement. e.g. v1.5.2, see [https://github.com/zeromicro/go-zero/releases]",
-        "tool_version": "The simple admin tool version version used for migration. e.g. v1.5.5, see [https://github.com/suyuan32/simple-admin-tools/releases]",
+        "tool_version": "The simple admin tool version version used for migration. e.g. v1.5.5, see [https://github.com/playbors/playbor-admin-tools/releases]",
         "port" : "The service port exposed",
         "gitlab": "Whether to use gitlab-ci",
         "i18n": "{{.global.i18n}}",
