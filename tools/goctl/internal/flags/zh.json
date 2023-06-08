@@ -1,7 +1,7 @@
 {
   "goctl": {
     "short": "一个基于 go zero 用于生成 Simple Admin 代码的 cli 工具",
-    "long": "\n      ___                       ___           ___           ___       ___     \n     /\\  \\          ___        /\\__\\         /\\  \\         /\\__\\     /\\  \\    \n    /::\\  \\        /\\  \\      /::|  |       /::\\  \\       /:/  /    /::\\  \\   \n   /:/\\ \\  \\       \\:\\  \\    /:|:|  |      /:/\\:\\  \\     /:/  /    /:/\\:\\  \\  \n  _\\:\\~\\ \\  \\      /::\\__\\  /:/|:|__|__   /::\\~\\:\\  \\   /:/  /    /::\\~\\:\\  \\ \n /\\ \\:\\ \\ \\__\\  __/:/\\/__/ /:/ |::::\\__\\ /:/\\:\\ \\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\\n \\:\\ \\:\\ \\/__/ /\\/:/  /    \\/__/~~/:/  / \\/__\\:\\/:/  / \\:\\  \\    \\:\\~\\:\\ \\/__/\n  \\:\\ \\:\\__\\   \\::/__/           /:/  /       \\::/  /   \\:\\  \\    \\:\\ \\:\\__\\  \n   \\:\\/:/  /    \\:\\__\\          /:/  /         \\/__/     \\:\\  \\    \\:\\ \\/__/  \n    \\::/  /      \\/__/         /:/  /                     \\:\\__\\    \\:\\__\\    \n     \\/__/                     \\/__/                       \\/__/     \\/__/    \n \n 一个用于生成 Simple Admin 的 api、zrpc、model 代码的 cli 工具\n\nGitHub: https://github.com/suyuan32/simple-admin-tools\nSite:   https://doc.ryansu.pro/",
+    "long": "\n      ___                       ___           ___           ___       ___     \n     /\\  \\          ___        /\\__\\         /\\  \\         /\\__\\     /\\  \\    \n    /::\\  \\        /\\  \\      /::|  |       /::\\  \\       /:/  /    /::\\  \\   \n   /:/\\ \\  \\       \\:\\  \\    /:|:|  |      /:/\\:\\  \\     /:/  /    /:/\\:\\  \\  \n  _\\:\\~\\ \\  \\      /::\\__\\  /:/|:|__|__   /::\\~\\:\\  \\   /:/  /    /::\\~\\:\\  \\ \n /\\ \\:\\ \\ \\__\\  __/:/\\/__/ /:/ |::::\\__\\ /:/\\:\\ \\:\\__\\ /:/__/    /:/\\:\\ \\:\\__\\\n \\:\\ \\:\\ \\/__/ /\\/:/  /    \\/__/~~/:/  / \\/__\\:\\/:/  / \\:\\  \\    \\:\\~\\:\\ \\/__/\n  \\:\\ \\:\\__\\   \\::/__/           /:/  /       \\::/  /   \\:\\  \\    \\:\\ \\:\\__\\  \n   \\:\\/:/  /    \\:\\__\\          /:/  /         \\/__/     \\:\\  \\    \\:\\ \\/__/  \n    \\::/  /      \\/__/         /:/  /                     \\:\\__\\    \\:\\__\\    \n     \\/__/                     \\/__/                       \\/__/     \\/__/    \n \n 一个用于生成 Simple Admin 的 api、zrpc、model 代码的 cli 工具\n\nGitHub: https://github.com/playbors/playbor-admin-tools\nSite:   https://doc.ryansu.pro/",
     "api": {
       "short": "生成与 api 相关的文件",
       "o": "输出 api 示例文件",
@@ -52,7 +52,7 @@
         "casbin": "是否使用 Casbin",
         "i18n": "{{.global.i18n}}",
         "go_zero_version": "用于替换的 go-zero 版本，例如 v1.5.2，请参见 [https://github.com/zeromicro/go-zero/releases]",
-        "tool_version": "用于迁移的 simple admin tool 版本，例如 v1.5.5，请参见 [https://github.com/suyuan32/simple-admin-tools/releases]",
+        "tool_version": "用于迁移的 simple admin tool 版本，例如 v1.5.5，请参见 [https://github.com/playbors/playbor-admin-tools/releases]",
         "module_name": "go.mod 中的模块名称，例如 github.com/suyuan32/simple-admin-core",
         "trans_err": "是否翻译错误",
         "port": "服务暴露的端口",
@@ -213,7 +213,7 @@
         "ent": "是否在项目中使用 Ent",
         "module_name": "go.mod 中的模块名称，例如：github.com/suyuan32/simple-admin-core",
         "go_zero_version": "用于替换的 go zero 版本，例如：v1.5.2，请参见 [https://github.com/zeromicro/go-zero/releases]",
-        "tool_version": "用于迁移的 simple admin 工具版本，例如：v1.5.5，请参见 [https://github.com/suyuan32/simple-admin-tools/releases]",
+        "tool_version": "用于迁移的 simple admin 工具版本，例如：v1.5.5，请参见 [https://github.com/playbors/playbor-admin-tools/releases]",
         "port": "服务公开的端口",
         "gitlab": "是否使用 gitlab-ci",
         "desc": "是否为拆分 proto 文件创建 desc 文件夹",
