@@ -45,7 +45,7 @@ require (
 	gopkg.in/cheggaaa/pb.v1 v1.0.28
 	gopkg.in/h2non/gock.v1 v1.1.2
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.26.3
+	k8s.io/api v0.27.3
 	k8s.io/apimachinery v0.28.0-alpha.1
 	k8s.io/client-go v0.26.3
 	k8s.io/utils v0.0.0-20230406110748-d93618cff8a2
