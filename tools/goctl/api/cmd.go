@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/zeromicro/go-zero/tools/goctl/drone"
 
 	"github.com/zeromicro/go-zero/tools/goctl/api/apigen"
 	"github.com/zeromicro/go-zero/tools/goctl/api/docgen"
@@ -28,6 +29,8 @@ var (
 	protoCmd = cobrax.NewCommand("proto", cobrax.WithRunE(gogen.GenCRUDLogicByProto))
 
 	entCmd = cobrax.NewCommand("ent", cobrax.WithRunE(gogen.GenCRUDLogicByEnt))
+
+	droneCmd = cobrax.NewCommand("drone", cobrax.WithRunE(drone.DroneGenerator))
 )
 
 func init() {
