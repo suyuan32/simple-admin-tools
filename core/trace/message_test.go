@@ -2,7 +2,6 @@ package trace
 
 import (
 	"context"
-	"go.opentelemetry.io/otel/trace/embedded"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -36,7 +35,6 @@ type mockSpan struct {
 	trace.Span
 	name    string
 	options []trace.EventOption
-	embedded.Span
 }
 
 func (m *mockSpan) End(_ ...trace.SpanEndOption) {
