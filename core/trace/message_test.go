@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
@@ -14,8 +15,9 @@ import (
 )
 
 func TestMessageType_Event(t *testing.T) {
-	var span mockSpan
-	ctx := trace.ContextWithSpan(context.Background(), &span)
+	ctx, s := otel.Tracer(TraceName).Start(context.Background(), "test")
+	span := mockSpan{Span: s}
+	ctx = trace.ContextWithSpan(ctx, &span)
 	MessageReceived.Event(ctx, 1, "foo")
 	assert.Equal(t, messageEvent, span.name)
 	assert.NotEmpty(t, span.options)
@@ -31,6 +33,7 @@ func TestMessageType_EventProtoMessage(t *testing.T) {
 }
 
 type mockSpan struct {
+	trace.Span
 	name    string
 	options []trace.EventOption
 	embedded.Span
