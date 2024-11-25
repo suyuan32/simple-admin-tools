@@ -3,6 +3,7 @@ package httpx
 import (
 	"io"
 	"net/http"
+	"reflect"
 	"strings"
 
 	"github.com/zeromicro/go-zero/core/errorx"
@@ -23,7 +24,8 @@ const (
 )
 
 var (
-	formUnmarshaler = mapping.NewUnmarshaler(formKey, mapping.WithStringValues(), mapping.WithOpaqueKeys())
+	formUnmarshaler = mapping.NewUnmarshaler(formKey, mapping.WithStringValues(), mapping.WithOpaqueKeys(),
+		mapping.WithFromArray())
 	pathUnmarshaler = mapping.NewUnmarshaler(pathKey, mapping.WithStringValues(), mapping.WithOpaqueKeys())
 	xValidator      = NewValidator()
 )
@@ -34,16 +36,19 @@ func Parse(r *http.Request, v any, isValidate bool) error {
 		return errorx.NewCodeInvalidArgumentError(err.Error())
 	}
 
-	if err := ParsePath(r, v); err != nil {
-		return errorx.NewCodeInvalidArgumentError(err.Error())
-	}
+	kind := mapping.Deref(reflect.TypeOf(v)).Kind()
+	if kind != reflect.Array && kind != reflect.Slice {
+		if err := ParsePath(r, v); err != nil {
+			return err
+		}
 
-	if err := ParseForm(r, v); err != nil {
-		return errorx.NewCodeInvalidArgumentError(err.Error())
-	}
+		if err := ParseForm(r, v); err != nil {
+			return err
+		}
 
-	if err := ParseHeaders(r, v); err != nil {
-		return errorx.NewCodeInvalidArgumentError(err.Error())
+		if err := ParseHeaders(r, v); err != nil {
+			return err
+		}
 	}
 
 	if isValidate {
