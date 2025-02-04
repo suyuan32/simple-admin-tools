@@ -13,6 +13,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
+	"github.com/zeromicro/go-zero/core/jsonx"
 	"github.com/zeromicro/go-zero/core/stringx"
 )
 
@@ -4868,14 +4869,28 @@ func TestUnmarshal_EnvWithOptionsWrongValueString(t *testing.T) {
 
 func TestUnmarshalJsonReaderMultiArray(t *testing.T) {
 	t.Run("reader multi array", func(t *testing.T) {
-		var res struct {
+		type testRes struct {
 			A string     `json:"a"`
 			B [][]string `json:"b"`
+			C []byte     `json:"c"`
 		}
-		payload := `{"a": "133", "b": [["add", "cccd"], ["eeee"]]}`
+
+		var res testRes
+		marshal := testRes{
+			A: "133",
+			B: [][]string{
+				{"add", "cccd"},
+				{"eeee"},
+			},
+			C: []byte("11122344wsss"),
+		}
+		bytes, err := jsonx.Marshal(marshal)
+		assert.NoError(t, err)
+		payload := string(bytes)
 		reader := strings.NewReader(payload)
 		if assert.NoError(t, UnmarshalJsonReader(reader, &res)) {
 			assert.Equal(t, 2, len(res.B))
+			assert.Equal(t, string(marshal.C), string(res.C))
 		}
 	})
 

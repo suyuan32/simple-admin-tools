@@ -13,7 +13,6 @@ import (
 	"github.com/zeromicro/go-zero/rest/pathvar"
 )
 
-// @enhance
 const (
 	formKey           = "form"
 	pathKey           = "path"
@@ -24,10 +23,16 @@ const (
 )
 
 var (
-	formUnmarshaler = mapping.NewUnmarshaler(formKey, mapping.WithStringValues(), mapping.WithOpaqueKeys(),
+	formUnmarshaler = mapping.NewUnmarshaler(
+		formKey,
+		mapping.WithStringValues(),
+		mapping.WithOpaqueKeys(),
 		mapping.WithFromArray())
-	pathUnmarshaler = mapping.NewUnmarshaler(pathKey, mapping.WithStringValues(), mapping.WithOpaqueKeys())
-	xValidator      = NewValidator()
+	pathUnmarshaler = mapping.NewUnmarshaler(
+		pathKey,
+		mapping.WithStringValues(),
+		mapping.WithOpaqueKeys())
+	xValidator = NewValidator()
 )
 
 // Parse parses the request.

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
-	"os"
 	"sync/atomic"
 	"testing"
 
@@ -102,9 +101,9 @@ func TestConsoleWriter(t *testing.T) {
 func TestNewFileWriter(t *testing.T) {
 	t.Run("access", func(t *testing.T) {
 		_, err := newFileWriter(LogConf{
-			Path: os.TempDir(),
+			Path: "/not-exists",
 		})
-		assert.Nil(t, err)
+		assert.Error(t, err)
 	})
 }
 

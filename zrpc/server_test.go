@@ -26,7 +26,7 @@ func TestServer(t *testing.T) {
 				Mode:        "console",
 			},
 		},
-		ListenOn:      "localhost:8080",
+		ListenOn:      "localhost:0",
 		Etcd:          discov.EtcdConf{},
 		Auth:          false,
 		Redis:         redis.RedisKeyConf{},
@@ -63,7 +63,7 @@ func TestServerError(t *testing.T) {
 				Mode:        "console",
 			},
 		},
-		ListenOn: "localhost:8080",
+		ListenOn: "localhost:0",
 		Etcd: discov.EtcdConf{
 			Hosts: []string{"localhost"},
 		},
@@ -90,7 +90,7 @@ func TestServer_HasEtcd(t *testing.T) {
 				Mode:        "console",
 			},
 		},
-		ListenOn: "localhost:8080",
+		ListenOn: "localhost:0",
 		Etcd: discov.EtcdConf{
 			Hosts: []string{"notexist"},
 			Key:   "any",

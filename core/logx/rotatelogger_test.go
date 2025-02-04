@@ -154,15 +154,13 @@ func TestSizeLimitRotateRuleOutdatedFiles(t *testing.T) {
 		f3, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary1)
 		assert.NoError(t, err)
 		t.Cleanup(func() {
+			_ = f1.Close()
 			_ = os.Remove(f1.Name())
+			_ = f2.Close()
 			_ = os.Remove(f2.Name())
+			_ = f3.Close()
 			_ = os.Remove(f3.Name())
 		})
-
-		_ = f1.Close()
-		_ = f2.Close()
-		_ = f3.Close()
-
 		rule := SizeLimitRotateRule{
 			DailyRotateRule: DailyRotateRule{
 				filename: filepath.Join(os.TempDir(), "go-zero-test-"),
@@ -278,10 +276,6 @@ func TestRotateLoggerMayCompressFileTrue(t *testing.T) {
 	if len(filename) > 0 {
 		defer os.Remove(filepath.Base(logger.getBackupFilename()) + ".gz")
 	}
-
-	err = logger.Close()
-	assert.Nil(t, err)
-
 	logger.maybeCompressFile(filename)
 	_, err = os.Stat(filename)
 	assert.NotNil(t, err)
@@ -290,7 +284,7 @@ func TestRotateLoggerMayCompressFileTrue(t *testing.T) {
 func TestRotateLoggerRotate(t *testing.T) {
 	filename, err := fs.TempFilenameWithText("foo")
 	assert.Nil(t, err)
-	logger, err := NewLogger(filename, &DailyRotateRule{filename: filename}, true)
+	logger, err := NewLogger(filename, new(DailyRotateRule), true)
 	assert.Nil(t, err)
 	if len(filename) > 0 {
 		defer func() {
@@ -388,14 +382,13 @@ func TestRotateLoggerWithSizeLimitRotateRuleMayCompressFileTrue(t *testing.T) {
 
 	filename, err := fs.TempFilenameWithText("foo")
 	assert.Nil(t, err)
-	logger, err := NewLogger(filename, NewSizeLimitRotateRule(filename, "-", 1, 100, 100, true),
-		true)
+	logger, err := NewLogger(filename, new(SizeLimitRotateRule), true)
 	assert.Nil(t, err)
 	if len(filename) > 0 {
 		defer os.Remove(filepath.Base(logger.getBackupFilename()) + ".gz")
 	}
 	logger.maybeCompressFile(filename)
-	_, err = os.Stat(logger.getBackupFilename())
+	_, err = os.Stat(filename)
 	assert.NotNil(t, err)
 }
 
@@ -419,8 +412,7 @@ func TestRotateLoggerWithSizeLimitRotateRuleMayCompressFileFailed(t *testing.T) 
 func TestRotateLoggerWithSizeLimitRotateRuleRotate(t *testing.T) {
 	filename, err := fs.TempFilenameWithText("foo")
 	assert.Nil(t, err)
-	logger, err := NewLogger(filename, NewSizeLimitRotateRule(filename, "-", 1, 100, 100, true),
-		true)
+	logger, err := NewLogger(filename, new(SizeLimitRotateRule), true)
 	assert.Nil(t, err)
 	if len(filename) > 0 {
 		defer func() {

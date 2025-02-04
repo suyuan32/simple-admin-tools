@@ -115,7 +115,7 @@ func TestParseFormArray(t *testing.T) {
 			http.NoBody)
 		assert.NoError(t, err)
 		if assert.NoError(t, Parse(r, &v, false)) {
-			assert.ElementsMatch(t, []string{""}, v.Name)
+			assert.Empty(t, v.Name)
 		}
 	})
 
@@ -130,7 +130,7 @@ func TestParseFormArray(t *testing.T) {
 			http.NoBody)
 		assert.NoError(t, err)
 		if assert.NoError(t, Parse(r, &v, false)) {
-			assert.ElementsMatch(t, []string{"", "1"}, v.Name)
+			assert.ElementsMatch(t, []string{"1"}, v.Name)
 		}
 	})
 

@@ -19,6 +19,7 @@ type (
 	RedisConf struct {
 		Host     string `json:",env=REDIS_HOST"`
 		Type     string `json:",default=node,options=node|cluster,env=REDIS_TYPE"`
+		User     string `json:",optional,env=REDIS_USER"`
 		Pass     string `json:",optional,env=REDIS_PASSWORD"`
 		Tls      bool   `json:",optional,env=REDIS_TLS"`
 		NonBlock bool   `json:",default=true"`
@@ -32,6 +33,26 @@ type (
 		Key string
 	}
 )
+
+// NewRedis returns a Redis.
+// Deprecated: use MustNewRedis or NewRedis instead.
+func (rc RedisConf) NewRedis() *Redis {
+	var opts []Option
+	if rc.Type == ClusterType {
+		opts = append(opts, Cluster())
+	}
+	if len(rc.User) > 0 {
+		opts = append(opts, WithUser(rc.User))
+	}
+	if len(rc.Pass) > 0 {
+		opts = append(opts, WithPass(rc.Pass))
+	}
+	if rc.Tls {
+		opts = append(opts, WithTLS())
+	}
+
+	return newRedis(rc.Host, opts...)
+}
 
 // Validate validates the RedisConf.
 func (rc RedisConf) Validate() error {

@@ -4,14 +4,16 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/zeromicro/go-zero/rest/enum"
-	"google.golang.org/grpc/metadata"
 	"net/http"
 	"net/http/httputil"
 
+	"google.golang.org/grpc/metadata"
+
+	"github.com/zeromicro/go-zero/rest/enum"
+
 	"github.com/golang-jwt/jwt/v5"
 
-	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/go-zero/rest/internal/response"
 	"github.com/zeromicro/go-zero/rest/token"
 )
@@ -116,7 +118,7 @@ func WithUnauthorizedCallback(callback UnauthorizedCallback) AuthorizeOption {
 func detailAuthLog(r *http.Request, reason string) {
 	// discard dump error, only for debug purpose
 	details, _ := httputil.DumpRequest(r, true)
-	logx.Errorf("authorize failed: %s\n=> %+v", reason, string(details))
+	logc.Errorf(r.Context(), "authorize failed: %s\n=> %+v", reason, string(details))
 }
 
 func unauthorized(w http.ResponseWriter, r *http.Request, err error, callback UnauthorizedCallback) {
