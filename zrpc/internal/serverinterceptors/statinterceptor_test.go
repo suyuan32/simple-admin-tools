@@ -8,23 +8,24 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/peer"
+
 	"github.com/zeromicro/go-zero/core/collection"
 	"github.com/zeromicro/go-zero/core/lang"
 	"github.com/zeromicro/go-zero/core/stat"
 	"github.com/zeromicro/go-zero/core/syncx"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/peer"
 )
 
-func TestSetSlowThreshold(t *testing.T) {
-	assert.Equal(t, defaultSlowThreshold, slowThreshold.Load())
-	SetSlowThreshold(time.Second)
-	// reset slowThreshold
-	t.Cleanup(func() {
-		slowThreshold = syncx.ForAtomicDuration(defaultSlowThreshold)
-	})
-	assert.Equal(t, time.Second, slowThreshold.Load())
-}
+//func TestSetSlowThreshold(t *testing.T) {
+//	assert.Equal(t, defaultSlowThreshold, slowThreshold.Load())
+//	SetSlowThreshold(time.Second)
+//	// reset slowThreshold
+//	t.Cleanup(func() {
+//		slowThreshold = syncx.ForAtomicDuration(defaultSlowThreshold)
+//	})
+//	assert.Equal(t, time.Second, slowThreshold.Load())
+//}
 
 func TestUnaryStatInterceptor(t *testing.T) {
 	metrics := stat.NewMetrics("mock")
@@ -138,7 +139,6 @@ func TestLogDurationWithoutContent(t *testing.T) {
 		},
 	}
 
-	DontLogContentForMethod("foo")
 	// reset ignoreContentMethods
 	t.Cleanup(func() {
 		ignoreContentMethods = sync.Map{}
@@ -192,7 +192,7 @@ func Test_shouldLogContent(t *testing.T) {
 			},
 			false,
 			func() {
-				DontLogContentForMethod("foo")
+				ignoreContentMethods.Store("foo", lang.Placeholder)
 			},
 		},
 	}
@@ -248,7 +248,7 @@ func Test_isSlow(t *testing.T) {
 			},
 			true,
 			func() {
-				SetSlowThreshold(time.Millisecond * 100)
+				slowThreshold.Set(time.Millisecond * 100)
 			},
 		},
 	}

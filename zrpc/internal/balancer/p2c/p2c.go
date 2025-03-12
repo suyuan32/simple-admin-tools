@@ -9,13 +9,14 @@ import (
 	"sync/atomic"
 	"time"
 
+	"google.golang.org/grpc/balancer"
+	"google.golang.org/grpc/balancer/base"
+	"google.golang.org/grpc/resolver"
+
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/syncx"
 	"github.com/zeromicro/go-zero/core/timex"
 	"github.com/zeromicro/go-zero/zrpc/internal/codes"
-	"google.golang.org/grpc/balancer"
-	"google.golang.org/grpc/balancer/base"
-	"google.golang.org/grpc/resolver"
 )
 
 const (

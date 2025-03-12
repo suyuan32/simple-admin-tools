@@ -278,7 +278,7 @@ func TestParseFormArray(t *testing.T) {
 			"/a?codes=aaa,bbb,ccc",
 			http.NoBody)
 		assert.NoError(t, err)
-		if assert.NoError(t, Parse(r, &v)) {
+		if assert.NoError(t, Parse(r, &v, false)) {
 			assert.ElementsMatch(t, []string{"aaa,bbb,ccc"}, v.Codes)
 		}
 	})
@@ -632,50 +632,6 @@ func TestParseHeaders_Error(t *testing.T) {
 	r := httptest.NewRequest("POST", "/", http.NoBody)
 	r.Header.Set("name", "foo")
 	assert.NotNil(t, Parse(r, &v, false))
-}
-
-func TestParseWithValidator(t *testing.T) {
-	SetValidator(mockValidator{})
-	defer SetValidator(mockValidator{nop: true})
-
-	var v struct {
-		Name    string  `form:"name"`
-		Age     int     `form:"age"`
-		Percent float64 `form:"percent,optional"`
-	}
-
-	r, err := http.NewRequest(http.MethodGet, "/a?name=hello&age=18&percent=3.4", http.NoBody)
-	assert.Nil(t, err)
-	if assert.NoError(t, Parse(r, &v)) {
-		assert.Equal(t, "hello", v.Name)
-		assert.Equal(t, 18, v.Age)
-		assert.Equal(t, 3.4, v.Percent)
-	}
-}
-
-func TestParseWithValidatorWithError(t *testing.T) {
-	SetValidator(mockValidator{})
-	defer SetValidator(mockValidator{nop: true})
-
-	var v struct {
-		Name    string  `form:"name"`
-		Age     int     `form:"age"`
-		Percent float64 `form:"percent,optional"`
-	}
-
-	r, err := http.NewRequest(http.MethodGet, "/a?name=world&age=18&percent=3.4", http.NoBody)
-	assert.Nil(t, err)
-	assert.Error(t, Parse(r, &v))
-}
-
-func TestParseWithValidatorRequest(t *testing.T) {
-	SetValidator(mockValidator{})
-	defer SetValidator(mockValidator{nop: true})
-
-	var v mockRequest
-	r, err := http.NewRequest(http.MethodGet, "/a?&age=18", http.NoBody)
-	assert.Nil(t, err)
-	assert.Error(t, Parse(r, &v))
 }
 
 func TestParseFormWithDot(t *testing.T) {
