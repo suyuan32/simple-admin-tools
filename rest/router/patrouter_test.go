@@ -631,7 +631,7 @@ func TestParseWrappedRequest(t *testing.T) {
 func TestParseWrappedGetRequestWithJsonHeader(t *testing.T) {
 	r, err := http.NewRequest(http.MethodGet, "http://hello.com/kevin/2017", bytes.NewReader(nil))
 	assert.Nil(t, err)
-	r.Header.Set(httpx.ContentType, header.JsonContentType)
+	r.Header.Set(httpx.ContentType, header.ContentTypeJson)
 
 	type (
 		Request struct {
@@ -664,7 +664,7 @@ func TestParseWrappedGetRequestWithJsonHeader(t *testing.T) {
 func TestParseWrappedHeadRequestWithJsonHeader(t *testing.T) {
 	r, err := http.NewRequest(http.MethodHead, "http://hello.com/kevin/2017", bytes.NewReader(nil))
 	assert.Nil(t, err)
-	r.Header.Set(httpx.ContentType, header.JsonContentType)
+	r.Header.Set(httpx.ContentType, header.ContentTypeJson)
 
 	type (
 		Request struct {
@@ -761,7 +761,7 @@ func TestParseWithAllUtf8(t *testing.T) {
 	r, err := http.NewRequest(http.MethodPost, "http://hello.com/kevin/2017?nickname=whatever&zipcode=200000",
 		bytes.NewBufferString(`{"location": "shanghai", "time": 20170912}`))
 	assert.Nil(t, err)
-	r.Header.Set(httpx.ContentType, header.JsonContentType)
+	r.Header.Set(httpx.ContentType, header.ContentTypeJson)
 
 	router := NewRouter()
 	err = router.Handle(http.MethodPost, "/:name/:year", http.HandlerFunc(
@@ -951,7 +951,7 @@ func TestParseWithMissingAllPaths(t *testing.T) {
 func TestParseGetWithContentLengthHeader(t *testing.T) {
 	r, err := http.NewRequest(http.MethodGet, "http://hello.com/kevin/2017?nickname=whatever&zipcode=200000", nil)
 	assert.Nil(t, err)
-	r.Header.Set(httpx.ContentType, header.JsonContentType)
+	r.Header.Set(httpx.ContentType, header.ContentTypeJson)
 	r.Header.Set(contentLength, "1024")
 
 	router := NewRouter()
@@ -979,7 +979,7 @@ func TestParseJsonPostWithTypeMismatch(t *testing.T) {
 	r, err := http.NewRequest(http.MethodPost, "http://hello.com/kevin/2017?nickname=whatever&zipcode=200000",
 		bytes.NewBufferString(`{"time": "20170912"}`))
 	assert.Nil(t, err)
-	r.Header.Set(httpx.ContentType, header.JsonContentType)
+	r.Header.Set(httpx.ContentType, header.ContentTypeJson)
 
 	router := NewRouter()
 	err = router.Handle(http.MethodPost, "/:name/:year", http.HandlerFunc(
@@ -1005,7 +1005,7 @@ func TestParseJsonPostWithInt2String(t *testing.T) {
 	r, err := http.NewRequest(http.MethodPost, "http://hello.com/kevin/2017",
 		bytes.NewBufferString(`{"time": 20170912}`))
 	assert.Nil(t, err)
-	r.Header.Set(httpx.ContentType, header.JsonContentType)
+	r.Header.Set(httpx.ContentType, header.ContentTypeJson)
 
 	router := NewRouter()
 	err = router.Handle(http.MethodPost, "/:name/:year", http.HandlerFunc(
