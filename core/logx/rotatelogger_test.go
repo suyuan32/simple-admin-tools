@@ -53,7 +53,7 @@ func TestDailyRotateRuleOutdatedFiles(t *testing.T) {
 	})
 
 	t.Run("temp files", func(t *testing.T) {
-		boundary := time.Now().Add(-time.Hour * time.Duration(hoursPerDay) * 2).Format(dateFormat)
+		boundary := time.Now().Add(-time.Hour * time.Duration(hoursPerDay) * 2).Format(time.DateOnly)
 		f1, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary)
 		assert.NoError(t, err)
 		_ = f1.Close()
@@ -74,7 +74,7 @@ func TestDailyRotateRuleOutdatedFiles(t *testing.T) {
 
 func TestDailyRotateRuleShallRotate(t *testing.T) {
 	var rule DailyRotateRule
-	rule.rotatedTime = time.Now().Add(time.Hour * 24).Format(dateFormat)
+	rule.rotatedTime = time.Now().Add(time.Hour * 24).Format(time.DateOnly)
 	assert.True(t, rule.ShallRotate(0))
 }
 
@@ -118,12 +118,12 @@ func TestSizeLimitRotateRuleOutdatedFiles(t *testing.T) {
 	})
 
 	t.Run("temp files", func(t *testing.T) {
-		boundary := time.Now().Add(-time.Hour * time.Duration(hoursPerDay) * 2).Format(dateFormat)
+		boundary := time.Now().Add(-time.Hour * time.Duration(hoursPerDay) * 2).Format(time.DateOnly)
 		f1, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary)
 		assert.NoError(t, err)
 		f2, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary)
 		assert.NoError(t, err)
-		boundary1 := time.Now().Add(time.Hour * time.Duration(hoursPerDay) * 2).Format(dateFormat)
+		boundary1 := time.Now().Add(time.Hour * time.Duration(hoursPerDay) * 2).Format(time.DateOnly)
 		f3, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary1)
 		assert.NoError(t, err)
 		t.Cleanup(func() {
@@ -145,12 +145,12 @@ func TestSizeLimitRotateRuleOutdatedFiles(t *testing.T) {
 	})
 
 	t.Run("no backups", func(t *testing.T) {
-		boundary := time.Now().Add(-time.Hour * time.Duration(hoursPerDay) * 2).Format(dateFormat)
+		boundary := time.Now().Add(-time.Hour * time.Duration(hoursPerDay) * 2).Format(time.DateOnly)
 		f1, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary)
 		assert.NoError(t, err)
 		f2, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary)
 		assert.NoError(t, err)
-		boundary1 := time.Now().Add(time.Hour * time.Duration(hoursPerDay) * 2).Format(dateFormat)
+		boundary1 := time.Now().Add(time.Hour * time.Duration(hoursPerDay) * 2).Format(time.DateOnly)
 		f3, err := os.CreateTemp(os.TempDir(), "go-zero-test-"+boundary1)
 		assert.NoError(t, err)
 		t.Cleanup(func() {
@@ -320,7 +320,7 @@ func TestRotateLoggerWrite(t *testing.T) {
 	}
 	// the following write calls cannot be changed to Write, because of DATA RACE.
 	logger.write([]byte(`foo`))
-	rule.rotatedTime = time.Now().Add(-time.Hour * 24).Format(dateFormat)
+	rule.rotatedTime = time.Now().Add(-time.Hour * 24).Format(time.DateOnly)
 	logger.write([]byte(`bar`))
 	logger.Close()
 	logger.write([]byte(`baz`))
@@ -448,7 +448,7 @@ func TestRotateLoggerWithSizeLimitRotateRuleWrite(t *testing.T) {
 	}
 	// the following write calls cannot be changed to Write, because of DATA RACE.
 	logger.write([]byte(`foo`))
-	rule.rotatedTime = time.Now().Add(-time.Hour * 24).Format(dateFormat)
+	rule.rotatedTime = time.Now().Add(-time.Hour * 24).Format(time.DateOnly)
 	logger.write([]byte(`bar`))
 	logger.Close()
 	logger.write([]byte(`baz`))
