@@ -33,7 +33,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.37.0
 	go.uber.org/automaxprocs v1.6.0
 	go.uber.org/goleak v1.3.0
-	golang.org/x/net v0.41.0
+	golang.org/x/net v0.42.0
 	golang.org/x/sys v0.34.0
 	golang.org/x/text v0.27.0
 	golang.org/x/time v0.12.0
