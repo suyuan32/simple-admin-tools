@@ -213,7 +213,6 @@ func newFileWriter(c LogConf) (Writer, error) {
 	statFile := path.Join(c.Path, statFilename)
 
 	handleOptions(opts)
-	setupLogLevel(c)
 
 	if infoLog, err = createOutput(accessFile); err != nil {
 		return nil, err
@@ -424,6 +423,8 @@ func processFieldValue(value any) any {
 			times = append(times, fmt.Sprint(t))
 		}
 		return times
+	case json.Marshaler:
+		return val
 	case fmt.Stringer:
 		return encodeStringer(val)
 	case []fmt.Stringer:
