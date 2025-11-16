@@ -27,11 +27,12 @@ type (
 		Target        string          `json:",optional"`
 		App           string          `json:",optional"`
 		Token         string          `json:",optional"`
-		NonBlock      bool            `json:",optional"`
+		NonBlock      bool            `json:",default=true"`
 		Timeout       int64           `json:",default=2000"`
 		KeepaliveTime time.Duration   `json:",optional"`
 		Enabled       bool            `json:",default=true"`
 		Middlewares   ClientMiddlewaresConf
+		BalancerName  string `json:",default=p2c_ewma"`
 	}
 
 	// A RpcServerConf is a rpc server config.
