@@ -147,24 +147,6 @@ func TestCreateExporter_ValidExporters(t *testing.T) {
 			errMsg:  "unknown exporter",
 		},
 		{
-			name: "jaeger http",
-			config: Config{
-				Name:     "jaeger-http",
-				Endpoint: "http://localhost:14268/api/traces",
-				Batcher:  kindJaeger,
-			},
-			wantErr: false,
-		},
-		{
-			name: "jaeger udp",
-			config: Config{
-				Name:     "jaeger-udp",
-				Endpoint: "udp://localhost:6831",
-				Batcher:  kindJaeger,
-			},
-			wantErr: false,
-		},
-		{
 			name: "zipkin",
 			config: Config{
 				Name:     "zipkin",
