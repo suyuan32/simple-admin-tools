@@ -23,10 +23,11 @@ import (
 
 func TestOpenTracingInterceptor(t *testing.T) {
 	ztrace.StartAgent(ztrace.Config{
-		Name:     "go-zero-test",
-		Endpoint: "localhost:4317",
-		Sampler:  1.0,
-		Batcher:  "otlpgrpc",
+		Name:         "go-zero-test",
+		Endpoint:     "http://localhost:14268",
+		OtlpHttpPath: "/v1/traces",
+		Batcher:      "otlphttp",
+		Sampler:      1.0,
 	})
 	defer ztrace.StopAgent()
 

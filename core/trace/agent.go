@@ -22,7 +22,6 @@ const (
 	kindOtlpGrpc = "otlpgrpc"
 	kindOtlpHttp = "otlphttp"
 	kindFile     = "file"
-	protocolUdp  = "udp"
 )
 
 var (
@@ -59,7 +58,6 @@ func StopAgent() {
 }
 
 func createExporter(c Config) (sdktrace.SpanExporter, error) {
-	// Just support jaeger and zipkin now, more for later
 	switch c.Batcher {
 	case kindZipkin:
 		return zipkin.New(c.Endpoint)

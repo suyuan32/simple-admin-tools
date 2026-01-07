@@ -26,17 +26,17 @@ func TestStartAgent(t *testing.T) {
 	c1 := Config{
 		Name: "foo",
 	}
-	c3 := Config{
+	c2 := Config{
 		Name:     "any",
 		Endpoint: endpoint2,
 		Batcher:  kindZipkin,
 	}
-	c4 := Config{
+	c3 := Config{
 		Name:     "bla",
 		Endpoint: endpoint3,
 		Batcher:  "otlp",
 	}
-	c5 := Config{
+	c4 := Config{
 		Name:     "otlpgrpc",
 		Endpoint: endpoint3,
 		Batcher:  kindOtlpGrpc,
@@ -44,7 +44,7 @@ func TestStartAgent(t *testing.T) {
 			"uptrace-dsn": "http://project2_secret_token@localhost:14317/2",
 		},
 	}
-	c6 := Config{
+	c5 := Config{
 		Name:     "otlphttp",
 		Endpoint: endpoint4,
 		Batcher:  kindOtlpHttp,
@@ -53,12 +53,12 @@ func TestStartAgent(t *testing.T) {
 		},
 		OtlpHttpPath: "/v1/traces",
 	}
-	c9 := Config{
+	c6 := Config{
 		Name:     "file",
 		Endpoint: endpoint71,
 		Batcher:  kindFile,
 	}
-	c10 := Config{
+	c7 := Config{
 		Name:     "file",
 		Endpoint: endpoint72,
 		Batcher:  kindFile,
@@ -66,12 +66,12 @@ func TestStartAgent(t *testing.T) {
 
 	StartAgent(c1)
 	StartAgent(c1)
+	StartAgent(c2)
 	StartAgent(c3)
 	StartAgent(c4)
 	StartAgent(c5)
 	StartAgent(c6)
-	StartAgent(c9)
-	StartAgent(c10)
+	StartAgent(c7)
 	defer StopAgent()
 
 	// With sync.Once, only the first non-disabled config (c1) takes effect.
