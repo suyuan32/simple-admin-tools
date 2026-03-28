@@ -14,12 +14,6 @@ import (
 type fakeSubConn struct {
 	balancer.SubConn // 嵌入接口，解决未导出方法问题（仅测试用，不调用未导出方法）
 	id               int
-	connected        bool
-}
-
-func (f *fakeSubConn) RegisterHealthListener(f2 func(balancer.SubConnState)) {
-	//TODO implement me
-	panic("implement me")
 }
 
 func (f *fakeSubConn) enforceSubConnEmbedding() {
@@ -27,9 +21,10 @@ func (f *fakeSubConn) enforceSubConnEmbedding() {
 	panic("implement me")
 }
 
-func (f *fakeSubConn) Connect()                             {}
-func (f *fakeSubConn) UpdateAddresses(_ []resolver.Address) {}
-func (f *fakeSubConn) Shutdown()                            {}
+func (f *fakeSubConn) Connect()                                           {}
+func (f *fakeSubConn) UpdateAddresses(_ []resolver.Address)               {}
+func (f *fakeSubConn) Shutdown()                                          {}
+func (f *fakeSubConn) RegisterHealthListener(func(balancer.SubConnState)) {}
 func (f *fakeSubConn) GetOrBuildProducer(b balancer.ProducerBuilder) (balancer.Producer, func()) {
 	return nil, func() {}
 }

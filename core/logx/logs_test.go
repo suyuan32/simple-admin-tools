@@ -241,15 +241,15 @@ func TestStructedLogDebug(t *testing.T) {
 	})
 }
 
-//func TestStructedLogDebugf(t *testing.T) {
-//	w := new(mockWriter)
-//	old := writer.Swap(w)
-//	defer writer.Store(old)
-//
-//	doTestStructedLog(t, levelDebug, w, func(v ...any) {
-//		Debugf(fmt.Sprint(v...))
-//	})
-//}
+func TestStructedLogDebugf(t *testing.T) {
+	w := new(mockWriter)
+	old := writer.Swap(w)
+	defer writer.Store(old)
+
+	doTestStructedLog(t, levelDebug, w, func(v ...any) {
+		Debugf("%s", fmt.Sprint(v...))
+	})
+}
 
 func TestStructedLogDebugfn(t *testing.T) {
 	t.Run("debugfn with output", func(t *testing.T) {
@@ -553,15 +553,15 @@ func TestStructedLogSlow(t *testing.T) {
 	})
 }
 
-//func TestStructedLogSlowf(t *testing.T) {
-//	w := new(mockWriter)
-//	old := writer.Swap(w)
-//	defer writer.Store(old)
-//
-//	doTestStructedLog(t, levelSlow, w, func(v ...any) {
-//		Slowf(fmt.Sprint(v...))
-//	})
-//}
+func TestStructedLogSlowf(t *testing.T) {
+	w := new(mockWriter)
+	old := writer.Swap(w)
+	defer writer.Store(old)
+
+	doTestStructedLog(t, levelSlow, w, func(v ...any) {
+		Slowf("%s", fmt.Sprint(v...))
+	})
+}
 
 func TestStructedLogSlowfn(t *testing.T) {
 	t.Run("slowfn with output", func(t *testing.T) {
@@ -619,15 +619,15 @@ func TestStructedLogStat(t *testing.T) {
 	})
 }
 
-//func TestStructedLogStatf(t *testing.T) {
-//	w := new(mockWriter)
-//	old := writer.Swap(w)
-//	defer writer.Store(old)
-//
-//	doTestStructedLog(t, levelStat, w, func(v ...any) {
-//		Statf(fmt.Sprint(v...))
-//	})
-//}
+func TestStructedLogStatf(t *testing.T) {
+	w := new(mockWriter)
+	old := writer.Swap(w)
+	defer writer.Store(old)
+
+	doTestStructedLog(t, levelStat, w, func(v ...any) {
+		Statf("%s", fmt.Sprint(v...))
+	})
+}
 
 func TestStructedLogSevere(t *testing.T) {
 	w := new(mockWriter)
@@ -639,15 +639,15 @@ func TestStructedLogSevere(t *testing.T) {
 	})
 }
 
-//func TestStructedLogSeveref(t *testing.T) {
-//	w := new(mockWriter)
-//	old := writer.Swap(w)
-//	defer writer.Store(old)
-//
-//	doTestStructedLog(t, levelSevere, w, func(v ...any) {
-//		Severef(fmt.Sprint(v...))
-//	})
-//}
+func TestStructedLogSeveref(t *testing.T) {
+	w := new(mockWriter)
+	old := writer.Swap(w)
+	defer writer.Store(old)
+
+	doTestStructedLog(t, levelSevere, w, func(v ...any) {
+		Severef("%s", fmt.Sprint(v...))
+	})
+}
 
 func TestStructedLogWithDuration(t *testing.T) {
 	const message = "hello there"

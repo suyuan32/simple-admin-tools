@@ -126,13 +126,9 @@ func TestPickerWithEmptyConns(t *testing.T) {
 }
 
 type mockClientConn struct {
+	balancer.SubConn
 	// add random string member to avoid map key equality.
 	id string
-}
-
-func (m mockClientConn) RegisterHealthListener(f func(balancer.SubConnState)) {
-	//TODO implement me
-	panic("implement me")
 }
 
 func (m mockClientConn) enforceSubConnEmbedding() {
@@ -152,4 +148,7 @@ func (m mockClientConn) Connect() {
 }
 
 func (m mockClientConn) Shutdown() {
+}
+
+func (m mockClientConn) RegisterHealthListener(func(balancer.SubConnState)) {
 }
