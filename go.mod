@@ -48,11 +48,12 @@ require (
 )
 
 require (
-	filippo.io/edwards25519 v1.1.0 // indirect
+	filippo.io/edwards25519 v1.1.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/clipperhouse/uax29/v2 v2.2.0 // indirect
+	github.com/clipperhouse/stringish v0.1.1 // indirect
+	github.com/clipperhouse/uax29/v2 v2.3.0 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
