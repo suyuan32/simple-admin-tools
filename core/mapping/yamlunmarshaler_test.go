@@ -251,7 +251,7 @@ func TestUnmarshalYamlBytesSliceString(t *testing.T) {
 
 	want := []string{"liao", "chaoxin"}
 	if !reflect.DeepEqual(c.Names, want) {
-		t.Fatalf("want %q, got %q", c.Names, want)
+		t.Fatalf("want %v, got %v", c.Names, want)
 	}
 }
 
@@ -268,7 +268,7 @@ func TestUnmarshalYamlBytesSliceStringOptional(t *testing.T) {
 
 	want := []string{"liao", "chaoxin"}
 	if !reflect.DeepEqual(c.Names, want) {
-		t.Fatalf("want %q, got %q", c.Names, want)
+		t.Fatalf("want %v, got %v", c.Names, want)
 	}
 }
 
@@ -295,7 +295,7 @@ func TestUnmarshalYamlBytesSliceStruct(t *testing.T) {
 		{"chaoxin", 2},
 	}
 	if !reflect.DeepEqual(c.People, want) {
-		t.Fatalf("want %q, got %q", c.People, want)
+		t.Fatalf("want %v, got %v", c.People, want)
 	}
 }
 
@@ -324,7 +324,7 @@ func TestUnmarshalYamlBytesSliceStructOptional(t *testing.T) {
 		{"chaoxin", 2, nil},
 	}
 	if !reflect.DeepEqual(c.People, want) {
-		t.Fatalf("want %q, got %q", c.People, want)
+		t.Fatalf("want %v, got %v", c.People, want)
 	}
 }
 

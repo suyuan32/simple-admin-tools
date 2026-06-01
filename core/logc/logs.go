@@ -61,7 +61,7 @@ func Error(ctx context.Context, v ...any) {
 
 // Errorf writes v with format into error log.
 func Errorf(ctx context.Context, format string, v ...any) {
-	getLogger(ctx).Errorf(fmt.Errorf(format, v...).Error())
+	getLogger(ctx).Error(fmt.Sprintf(format, v...))
 }
 
 // Errorfn writes fn result into error log.
