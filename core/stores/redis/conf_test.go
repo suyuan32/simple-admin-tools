@@ -56,10 +56,13 @@ func TestRedisConf(t *testing.T) {
 		t.Run(stringx.RandId(), func(t *testing.T) {
 			if test.ok {
 				assert.Nil(t, test.RedisConf.Validate())
+				test.RedisConf.NonBlock = true
 				_, err := NewRedis(test.RedisConf)
-				assert.NotNil(t, err)
+				assert.NoError(t, err)
 			} else {
 				assert.NotNil(t, test.RedisConf.Validate())
+				_, err := NewRedis(test.RedisConf)
+				assert.Error(t, err)
 			}
 		})
 	}
